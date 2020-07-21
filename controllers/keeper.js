@@ -32,14 +32,14 @@ router.get('/list/',(req,res)=>{
              throw err;
          }
 
-        var mykey = crypto.createDecipher('aes-128-cbc', 'shank');
-        
         rows.forEach(row => {
+            var mykey = crypto.createDecipher('aes-128-cbc', 'shank');
             let mystr = mykey.update(row.password, 'hex', 'utf8')
             mystr += mykey.final('utf8');
             row.password=mystr;    
         });
         
+        console.log(rows);       
         res.json(rows);
      })
      
